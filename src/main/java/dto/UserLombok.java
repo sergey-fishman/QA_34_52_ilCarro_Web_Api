@@ -1,4 +1,15 @@
 package dto;
 
-public class User {
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Setter
+@Getter
+@ToString
+
+public class UserLombok {
+    private String username;
+    private String password;
 }
