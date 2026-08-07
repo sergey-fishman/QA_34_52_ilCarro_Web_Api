@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 public abstract class BasePage {
     static WebDriver driver;
 
-    public static void setDriver(WebDriver driver) {
-        BasePage.driver = driver;
+    public void setDriver(WebDriver wd) {
+        driver = wd;
     }
 
     public void pause(int time){
