@@ -11,12 +11,12 @@ import pages.LoginPage;
 public class LoginTests extends AppManager {
 
     @BeforeMethod
-    public void goToLoginPage(){
+    public void goToLoginPage() {
         new HomePage(getDriver()).clickLinkLogin();
     }
 
     @Test()
-    public void LoginPositiveTest(){
+    public void LoginPositiveTest() {
         UserLombok user = UserLombok.builder()
                 .username("test321@gmail.com")
                 .password("Test12345$")
