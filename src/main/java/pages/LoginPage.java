@@ -22,13 +22,48 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//form/button")
     WebElement btnLogin;
 
+    @FindBy(xpath = "//div[@class='input-container'][1]")
+    WebElement emailInputContainer;
+    @FindBy(xpath = "//div[@class='input-container'][2]")
+    WebElement passwordInputContainer;
+
+
+
+    @FindBy(xpath = "//h2[@class='message']")
+    WebElement messageLoginSuccess;
+
     public void typeLoginForm(UserLombok user){
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
+    }
+
+    public void clickOnTextFields() {
+        inputEmail.click();
+        inputPassword.click();
     }
 
     public void clickBtnLogin(){
         btnLogin.click();
     }
 
+    public boolean isLoginBtnEnabled() {
+        return btnLogin.isEnabled();
+    }
+
+    public void printMessageLogin(){
+        System.out.println(">>>> message login >>>> " +
+                messageLoginSuccess.getText());
+    }
+
+    public boolean validateTextMessageLoginSuccess(String text) {
+        return isTextInElementPresent(messageLoginSuccess, text);
+    }
+
+    public boolean validateTextMessageEmailIsRequired(String text) {
+        return isTextInElementPresent(emailInputContainer, text);
+    }
+
+    public boolean validateTextMessagePasswordIsRequired(String text) {
+        return isTextInElementPresent(passwordInputContainer, text);
+    }
 }
