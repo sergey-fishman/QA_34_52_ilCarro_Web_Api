@@ -5,11 +5,15 @@ import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
 
+import static utils.PropertiesReader.*;
+
 public class LoginTests extends AppManager {
     LoginPage loginPage;
+    SoftAssert softAssert = new SoftAssert();
 
     @BeforeMethod
     public void goToLoginPage() {
@@ -20,14 +24,37 @@ public class LoginTests extends AppManager {
     @Test()
     public void loginPositiveTest() {
         UserLombok user = UserLombok.builder()
-                .username("test321@gmail.com")
-                .password("Test12345$")
+                .username(getProperty("base.properties", "email"))
+                .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnLogin();
         Assert.assertTrue(loginPage.validateTextMessageLoginSuccess
                 ("Logged in success"));
+        Assert.assertTrue(loginPage.isMessageLoginDisplayed());
         loginPage.printMessageLogin();
+    }
+
+    @Test()
+    public void loginNegativeWrongEmailTest() {
+        UserLombok user = UserLombok.builder()
+                .username("tast321@gmail.com")
+                .password(getProperty("base.properties", "password"))
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnLogin();
+        Assert.assertTrue(loginPage.isMessageLoginFailedDisplayed());
+    }
+
+    @Test()
+    public void loginNegativeWrongPasswordTest() {
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties", "email"))
+                .password("Test123456$")
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnLogin();
+        Assert.assertTrue(loginPage.isMessageLoginFailedDisplayed());
     }
     /*
      User fails to log in if he bypasses text fields completely.
@@ -36,11 +63,11 @@ public class LoginTests extends AppManager {
      */
 
     @Test
-    public void loginNegativeEmptyFieldsTest() {
+    public void loginNegativeEmptyFieldsNoClickTest() {
         loginPage.clickBtnLogin();
-        Assert.assertTrue(loginPage.validateTextMessageEmailIsRequired
+        Assert.assertFalse(loginPage.validateTextMessageEmailIsRequired
                 ("Email is required"));
-        Assert.assertTrue(loginPage.validateTextMessagePasswordIsRequired
+        Assert.assertFalse(loginPage.validateTextMessagePasswordIsRequired
                 ("Password is required"));
         Assert.assertFalse(loginPage.isLoginBtnEnabled());
     }
@@ -57,11 +84,15 @@ public class LoginTests extends AppManager {
     public void loginNegativeEmptyFieldsWithClickTest() {
         loginPage.clickOnTextFields();
         loginPage.clickBtnLogin();
-        Assert.assertTrue(loginPage.validateTextMessageEmailIsRequired
-                ("Email is required"));
-        Assert.assertTrue(loginPage.validateTextMessagePasswordIsRequired
-                ("Password is required"));
-        Assert.assertFalse(loginPage.isLoginBtnEnabled());
+//        Assert.assertTrue(loginPage.validateTextMessageEmailIsRequired
+//                ("Email is required"));
+//        Assert.assertTrue(loginPage.validateTextMessagePasswordIsRequired
+//                ("Password is required"));
+        softAssert.assertFalse(loginPage.isLoginBtnEnabled(), "btn Login validation");
+        System.out.println("test working");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Email is required"), "email is required");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Password is required"), "password is required");
+        softAssert.assertAll();
     }
 
     @Test

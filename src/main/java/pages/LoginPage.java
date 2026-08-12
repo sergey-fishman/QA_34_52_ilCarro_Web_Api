@@ -28,9 +28,10 @@ public class LoginPage extends BasePage{
     WebElement passwordInputContainer;
 
 
-
     @FindBy(xpath = "//h2[@class='message']")
     WebElement messageLoginSuccess;
+    @FindBy(xpath = "//h1[text()='Login failed']")
+    WebElement messageLoginFailed;
 
     public void typeLoginForm(UserLombok user){
         inputEmail.sendKeys(user.getUsername());
@@ -57,6 +58,14 @@ public class LoginPage extends BasePage{
 
     public boolean validateTextMessageLoginSuccess(String text) {
         return isTextInElementPresent(messageLoginSuccess, text);
+    }
+
+    public boolean isMessageLoginDisplayed() {
+        return isDisplayed(messageLoginSuccess);
+    }
+
+    public boolean isMessageLoginFailedDisplayed() {
+        return isDisplayed(messageLoginFailed);
     }
 
     public boolean validateTextMessageEmailIsRequired(String text) {
