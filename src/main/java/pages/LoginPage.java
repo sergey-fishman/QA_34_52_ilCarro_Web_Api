@@ -69,10 +69,10 @@ public class LoginPage extends BasePage{
     }
 
     public boolean validateTextMessageEmailIsRequired(String text) {
-        return isTextInElementPresent(emailInputContainer, text);
+        return isTextInElementPresentSimple(emailInputContainer, text);
     }
 
     public boolean validateTextMessagePasswordIsRequired(String text) {
-        return isTextInElementPresent(passwordInputContainer, text);
+        return isTextInElementPresentSimple(passwordInputContainer, text);
     }
 }

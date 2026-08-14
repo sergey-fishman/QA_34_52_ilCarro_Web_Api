@@ -42,6 +42,10 @@ public abstract class BasePage {
         return false;
     }
 
+    public boolean isTextInElementPresentSimple(WebElement element, String text) {
+        return element.getText().contains(text);
+    }
+
     public String closeAlert() {
         Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions

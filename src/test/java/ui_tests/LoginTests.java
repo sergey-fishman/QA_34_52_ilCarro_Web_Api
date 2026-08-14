@@ -73,7 +73,7 @@ public class LoginTests extends AppManager {
     }
     /*
     Expected condition failed: waiting for text ('Email is required')
-    to be present in element [[ChromeDriver: chrome on windows
+    to be present in element [[ChromeDriver: chrome on Windows
     (8c16df3dcc655aa397c57f5fb4de66fe)] ->
     xpath: //div[@class='input-container'][1]]
     (tried for 5 second(s) with 500 milliseconds interval)
@@ -95,13 +95,28 @@ public class LoginTests extends AppManager {
         softAssert.assertAll();
     }
 
+    // HW_05
     @Test
     public void loginNegativeEmptyEmailFieldTest() {
         UserLombok user = UserLombok.builder()
                 .username("")
-                .password("Test12345$")
+                .password(getProperty("base.properties","password"))
                 .build();
         loginPage.typeLoginForm(user);
+        loginPage.clickBtnLogin();
         Assert.assertFalse(loginPage.isLoginBtnEnabled());
+        Assert.assertTrue(loginPage.validateTextMessageEmailIsRequired("Email is required"));
+    }
+
+    @Test
+    public void loginNegativeEmptyPasswordFieldTest() {
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties","email"))
+                .password("")
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnLogin();
+        Assert.assertFalse(loginPage.isLoginBtnEnabled());
+        Assert.assertTrue(loginPage.validateTextMessagePasswordIsRequired("Password is required"));
     }
 }
