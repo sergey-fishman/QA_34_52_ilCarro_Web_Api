@@ -58,7 +58,7 @@ public class LoginTests extends AppManager {
     }
     /*
      User fails to log in if he bypasses text fields completely.
-     Expected result: Failed to login. The e-mail and password textboxes are highlighted red.
+     Expected result: Failed to log in. The e-mail and password textboxes are highlighted red.
      Error messages "Email is required" and "Password is required" appear
      */
 
@@ -104,8 +104,9 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnLogin();
-        Assert.assertFalse(loginPage.isLoginBtnEnabled());
-        Assert.assertTrue(loginPage.validateTextMessageEmailIsRequired("Email is required"));
+        softAssert.assertFalse(loginPage.isLoginBtnEnabled());
+        softAssert.assertTrue(loginPage.validateTextMessageEmailIsRequired("Email is required"));
+        softAssert.assertAll();
     }
 
     @Test
@@ -116,7 +117,8 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnLogin();
-        Assert.assertFalse(loginPage.isLoginBtnEnabled());
-        Assert.assertTrue(loginPage.validateTextMessagePasswordIsRequired("Password is required"));
+        softAssert.assertFalse(loginPage.isLoginBtnEnabled());
+        softAssert.assertTrue(loginPage.validateTextMessagePasswordIsRequired("Password is required"));
+        softAssert.assertAll();
     }
 }
