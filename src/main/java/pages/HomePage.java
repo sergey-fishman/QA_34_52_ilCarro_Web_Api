@@ -21,7 +21,14 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[@href='/login?url=%2Fsearch']")
     WebElement linkLogin;
 
+    @FindBy(xpath = "//app-navigator//a[@href='/registration?url=%2Fsearch']")
+    WebElement linkRegistration;
+
     public void clickLinkLogin() {
         linkLogin.click();
+    }
+
+    public void clickLinkRegistration() {
+        linkRegistration.click();
     }
 }
