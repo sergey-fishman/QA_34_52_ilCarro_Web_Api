@@ -31,11 +31,28 @@ public class RegistrationPage extends BasePage {
     @FindBy(id = "mat-dialog-0")
     WebElement matDialogContainer;
 
+    @FindBy(xpath = "//form/div[1]")
+    WebElement firstNameContainer;
+    @FindBy(xpath = "//form/div[2]")
+    WebElement lastNameContainer;
+    @FindBy(xpath = "//form/div[3]")
+    WebElement emailContainer;
+    @FindBy(xpath = "//form/div[4]")
+    WebElement passwordContainer;
+
+
     public void typeRegistrationForm(UserLombok user) {
         inputFirstName.sendKeys(user.getFirstName());
         inputLastName.sendKeys(user.getLastName());
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
+    }
+
+    public void clickOnTextInputFields() {
+        inputFirstName.click();
+        inputLastName.click();
+        inputEmail.click();
+        inputPassword.click();
     }
 
     public void clickCheckbox() {
@@ -46,11 +63,15 @@ public class RegistrationPage extends BasePage {
         btnYalla.click();
     }
 
-    public boolean isBtnYallaEnabled(String s) {
+    public boolean isBtnYallaEnabled() {
         return btnYalla.isEnabled();
     }
 
     public boolean validateTextInMatDialogContainerIsPresent(String text) {
         return isTextInElementPresentSimple(matDialogContainer, text);
+    }
+
+    public boolean validateTextInFirstNameContainer(String text) {
+        return isTextInElementPresentSimple(firstNameContainer, text);
     }
 }
