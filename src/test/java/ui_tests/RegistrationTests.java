@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
+import pages.PopUpPage;
 import pages.RegistrationPage;
 import utils.UserFactory;
 
@@ -23,9 +24,15 @@ public class RegistrationTests extends AppManager {
         new HomePage(getDriver()).clickLinkRegistration();
         registrationPage = new RegistrationPage(getDriver());
     }
+
     @Test
     public void checkbox() {
         registrationPage.clickCheckbox();
+    }
+
+    @Test
+    public void checkboxWithJS() {
+        registrationPage.clickCheckboxJS();
     }
 
     // HW_06 -> User registers with correct data -> Test passed
@@ -41,25 +48,28 @@ public class RegistrationTests extends AppManager {
         softAssert.assertTrue(registrationPage
                         .validateTextInMatDialogContainerIsPresent("Registered"),
                 "If False -> Text 'Registered' is not present");
+        softAssert.assertTrue(new PopUpPage(getDriver())
+                .isTextInPoPupMessagePresent("You are logged in success"));
         softAssert.assertAll();
     }
 
     // TC 1 -> User fails to reg if he bypasses text fields completely.
     // Expected result -> Reg failed, Button Yalla not clickable,
     // Text fields are highlighted red and error messages appear.
-    // Unable to execute -> Test freezes
+    // Test failed as expected
+    // Each element from isTextInErrorPresent takes 10 sec to load -> AjaxElementLocatorFactory
     @Test
     public void registrationNegativeEmptyFieldsNoClickTest() {
         registrationPage.clickBtnYalla();
         softAssert.assertFalse(registrationPage
                 .isBtnYallaEnabled(), "If False -> Btn yalla is enabled");
-        softAssert.assertTrue(registrationPage
+        Assert.assertTrue(registrationPage
                 .isTextInErrorPresent("Name is required"), "Name is required error not found");
-        softAssert.assertTrue(registrationPage
+        Assert.assertTrue(registrationPage
                 .isTextInErrorPresent("Last name is required"),"Last name is required error not found");
-        softAssert.assertTrue(registrationPage
+        Assert.assertTrue(registrationPage
                 .isTextInErrorPresent("Email is required"),"Email is required error not found");
-        softAssert.assertTrue(registrationPage
+        Assert.assertTrue(registrationPage
                 .isTextInErrorPresent("Password is required"),"Password is required error not found");
         softAssert.assertAll();
     }

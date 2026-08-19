@@ -1,6 +1,7 @@
 package pages;
 
 import dto.UserLombok;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,21 +26,13 @@ public class RegistrationPage extends BasePage {
     WebElement inputPassword;
     @FindBy(xpath = "//div[contains(@class, 'checkbox')]")
     WebElement checkbox;
+    @FindBy(xpath = "//input[@id='terms-of-use']")
+    WebElement checkBoxInput;
     @FindBy(xpath = "//form//button")
     WebElement btnYalla;
 
     @FindBy(id = "mat-dialog-0")
     WebElement matDialogContainer;
-
-    @FindBy(xpath = "//form/div[1]")
-    WebElement firstNameContainer;
-    @FindBy(xpath = "//form/div[2]")
-    WebElement lastNameContainer;
-    @FindBy(xpath = "//form/div[3]")
-    WebElement emailContainer;
-    @FindBy(xpath = "//form/div[4]")
-    WebElement passwordContainer;
-
 
     public void typeRegistrationForm(UserLombok user) {
         inputFirstName.sendKeys(user.getFirstName());
@@ -71,7 +64,8 @@ public class RegistrationPage extends BasePage {
         return isTextInElementPresentSimple(matDialogContainer, text);
     }
 
-    public boolean validateTextInFirstNameContainer(String text) {
-        return isTextInElementPresentSimple(firstNameContainer, text);
+    public void clickCheckboxJS() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", checkBoxInput);
     }
 }
