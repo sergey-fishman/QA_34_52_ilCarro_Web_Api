@@ -17,7 +17,7 @@ public class AppManager {
         return driver;
     }
 
-    Logger logger = LoggerFactory.getLogger(AppManager.class);
+    public Logger logger = LoggerFactory.getLogger(AppManager.class);
 
     @BeforeMethod
     public void setup(Method method) {
@@ -31,5 +31,4 @@ public class AppManager {
         if (driver != null)
             driver.quit();
     }
-
 }

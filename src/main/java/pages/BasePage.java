@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BasePage {
     static WebDriver driver;
-    Logger logger = LoggerFactory.getLogger(BasePage.class);
+    public Logger logger = LoggerFactory.getLogger(BasePage.class);
 
     public void setDriver(WebDriver wd) {
         driver = wd;
