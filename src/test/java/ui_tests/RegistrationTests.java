@@ -35,6 +35,11 @@ public class RegistrationTests extends AppManager {
         registrationPage.clickCheckboxJS();
     }
 
+    @Test
+    public void checkboxWithActions() {
+        registrationPage.clickCheckboxWithActions();
+    }
+
     // HW_06 -> User registers with correct data -> Test passed
     @Test
     public void registrationPositiveTest() {
