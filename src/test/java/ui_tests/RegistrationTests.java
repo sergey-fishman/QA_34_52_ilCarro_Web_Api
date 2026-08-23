@@ -46,7 +46,7 @@ public class RegistrationTests extends AppManager {
         UserLombok user = positiveUser();
         System.out.println(user);
         registrationPage.typeRegistrationForm(user);
-        registrationPage.clickCheckbox();
+        registrationPage.clickCheckboxWithActions();
         softAssert.assertTrue(registrationPage
                 .isBtnYallaEnabled(), "If False -> Btn yalla is not enabled");
         registrationPage.clickBtnYalla();
