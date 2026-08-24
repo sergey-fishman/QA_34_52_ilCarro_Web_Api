@@ -32,7 +32,6 @@ public class LoginTests extends AppManager {
         Assert.assertTrue(loginPage.validateTextMessageLoginSuccess
                 ("Logged in success"));
         Assert.assertTrue(loginPage.isMessageLoginDisplayed());
-        loginPage.printMessageLogin();
     }
 
     @Test()

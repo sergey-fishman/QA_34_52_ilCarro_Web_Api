@@ -33,6 +33,9 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//h1[text()='Login failed']")
     WebElement messageLoginFailed;
 
+    @FindBy(xpath = "//app-error//button")
+    WebElement btnOK;
+
     public void typeLoginForm(UserLombok user){
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
@@ -49,11 +52,6 @@ public class LoginPage extends BasePage{
 
     public boolean isLoginBtnEnabled() {
         return btnLogin.isEnabled();
-    }
-
-    public void printMessageLogin(){
-        System.out.println(">>>> message login >>>> " +
-                messageLoginSuccess.getText());
     }
 
     public boolean validateTextMessageLoginSuccess(String text) {
@@ -74,5 +72,9 @@ public class LoginPage extends BasePage{
 
     public boolean validateTextMessagePasswordIsRequired(String text) {
         return isTextInElementPresentSimple(passwordInputContainer, text);
+    }
+
+    public void clickBtnOK() {
+        btnOK.click();
     }
 }

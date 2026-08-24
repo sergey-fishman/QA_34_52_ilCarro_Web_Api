@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +30,22 @@ public abstract class BasePage {
             if (element.getText().contains(text)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public void clickWait(WebElement element) {
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until
+                        (ExpectedConditions.elementToBeClickable(element))
+                        .click();
+    }
+
+    public boolean isUrlContainsText(String text) {
+        try {
+            return new WebDriverWait(driver, Duration.ofSeconds(5)).until
+                    (ExpectedConditions.urlContains(text));
+        } catch (TimeoutException e) {
+            logger.error(e.getMessage());
         }
         return false;
     }
