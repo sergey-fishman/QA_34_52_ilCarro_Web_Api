@@ -7,12 +7,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
-    public LoginPage(WebDriver driver){
-        PageFactory.initElements
-                (new AjaxElementLocatorFactory
-                        (driver,10),this);
+    public LoginPage(WebDriver driver) {
+        PageFactory.initElements(new AjaxElementLocatorFactory
+                (driver, 10), this);
     }
 
     @FindBy(xpath = "//form/div[1]/input")
@@ -36,7 +35,7 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//app-error//button")
     WebElement btnOK;
 
-    public void typeLoginForm(UserLombok user){
+    public void typeLoginForm(UserLombok user) {
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
     }
@@ -46,7 +45,7 @@ public class LoginPage extends BasePage{
         inputPassword.click();
     }
 
-    public void clickBtnLogin(){
+    public void clickBtnLogin() {
         btnLogin.click();
     }
 

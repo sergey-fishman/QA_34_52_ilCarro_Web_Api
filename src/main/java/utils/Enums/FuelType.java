@@ -1,4 +1,4 @@
-package Enums;
+package utils.Enums;
 
 public enum FuelType {
     DIESEL("Diesel"),

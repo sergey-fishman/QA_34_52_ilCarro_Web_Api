@@ -54,10 +54,10 @@ public class LetTheCarWorkPage extends BasePage {
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
         selectFuel.sendKeys(car.getFuelType());
-        inputSeats.sendKeys(car.getSeats());
+        inputSeats.sendKeys(car.getSeats().toString());
         inputClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerial());
-        inputPrice.sendKeys(car.getPrice());
+        inputPrice.sendKeys(car.getPrice().toString());
     }
 
     public void typeTextArea(String text) {

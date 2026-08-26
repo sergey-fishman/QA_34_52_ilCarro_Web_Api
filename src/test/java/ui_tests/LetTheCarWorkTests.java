@@ -1,6 +1,7 @@
 package ui_tests;
 
-import Enums.FuelType;
+import utils.CarFactory;
+import utils.Enums.FuelType;
 import dto.Car;
 import dto.UserLombok;
 import manager.AppManager;
@@ -10,18 +11,25 @@ import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LetTheCarWorkPage;
 import pages.LoginPage;
+import pages.PopUpPage;
+import utils.Enums.HeaderMenu;
 
 import static utils.PropertiesReader.getProperty;
+import static utils.CarFactory.*;
 
 public class LetTheCarWorkTests extends AppManager {
+    HomePage homePage;
+    LoginPage loginPage;
     LetTheCarWorkPage letTheCarWorkPage;
     SoftAssert softAssert = new SoftAssert();
 
     @BeforeMethod
     public void goToLetTheCarWorkPageWithAuth() {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.clickLinkLogin();
-        LoginPage loginPage = new LoginPage(getDriver());
+//        HomePage homePage = new HomePage(getDriver());
+//        homePage.clickLinkLogin();
+//        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage = new HomePage(getDriver())
+                .clickHeaderButtons(HeaderMenu.LOG_IN);
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
@@ -31,28 +39,20 @@ public class LetTheCarWorkTests extends AppManager {
         softAssert.assertTrue(loginPage.validateTextMessageLoginSuccess
                 ("Logged in success"), "Unable to get successful login message");
         loginPage.clickBtnOK();
-        homePage = new HomePage(getDriver());
-        homePage.clickLinkLetCarWork();
-        letTheCarWorkPage = new LetTheCarWorkPage(getDriver());
+        letTheCarWorkPage = new HomePage(getDriver())
+                .clickHeaderButtons(HeaderMenu.LET_THE_CAR_WORK);
     }
 
     @Test
     public void positiveTest() {
         letTheCarWorkPage.typeLocation("Berlin");
-        Car car = Car.builder()
-                .manufacture("Toyota")
-                .model("Yaris")
-                .year("2026")
-                .fuelType(FuelType.ELECTRIC.getValue())
-                .seats("5")
-                .carClass("Eco")
-                .serial("QWE123RTY")
-                .price("299")
-                .build();
+        Car car = positiveCar();
         letTheCarWorkPage.typeCarDetailsForm(car);
-        letTheCarWorkPage.typeTextArea("lkdsjflsddkjfksdjf\noasjsaf282834##$$@&&\n6564so\n-=]][as[p]1@3&&^%");
+        letTheCarWorkPage.typeTextArea(faker.text().text(0,500));
         letTheCarWorkPage.clickBtnSubmitWithJS();
         softAssert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
+                ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
+        softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupMessagePresent
                 ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
         softAssert.assertAll();
     }

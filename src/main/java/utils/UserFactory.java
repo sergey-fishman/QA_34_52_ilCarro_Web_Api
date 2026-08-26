@@ -11,6 +11,8 @@ public class UserFactory {
         System.out.println(positiveUser().getLastName());
         System.out.println(positiveUser().getUsername());
         System.out.println(positiveUser().getPassword());
+        System.out.println(faker.halfLife().character());
+        System.out.println(faker.vehicle().model());
     }
 
 
