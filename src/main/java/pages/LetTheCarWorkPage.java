@@ -50,6 +50,7 @@ public class LetTheCarWorkPage extends BasePage {
     }
 
     public void typeCarDetailsForm(Car car) {
+        inputLocation.sendKeys(car.getCity());
         inputManufacture.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
@@ -58,6 +59,7 @@ public class LetTheCarWorkPage extends BasePage {
         inputClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerial());
         inputPrice.sendKeys(car.getPrice().toString());
+        textArea.sendKeys(car.getAbout());
     }
 
     public void typeTextArea(String text) {

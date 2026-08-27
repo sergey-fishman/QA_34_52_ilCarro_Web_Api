@@ -22,6 +22,7 @@ public class CarFactory {
 
     public static Car positiveCar() {
         return Car.builder()
+                .city("Berlin")
                 .manufacture(faker.vehicle().manufacturer())
                 .model(faker.vehicle().model())
                 .year(Integer.toString(faker.number().numberBetween
@@ -31,6 +32,7 @@ public class CarFactory {
                 .carClass(faker.vehicle().style())
                 .serial(faker.vehicle().licensePlate())
                 .price(faker.number().randomDouble(2, 0, 1000))
+                .about(faker.text().text(0,500))
                 .build();
     }
 }

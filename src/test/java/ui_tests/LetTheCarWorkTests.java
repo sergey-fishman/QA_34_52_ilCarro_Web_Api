@@ -45,16 +45,15 @@ public class LetTheCarWorkTests extends AppManager {
 
     @Test
     public void positiveTest() {
-        letTheCarWorkPage.typeLocation("Berlin");
         Car car = positiveCar();
         letTheCarWorkPage.typeCarDetailsForm(car);
-        letTheCarWorkPage.typeTextArea(faker.text().text(0,500));
         letTheCarWorkPage.clickBtnSubmitWithJS();
         softAssert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
                 ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
         softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupMessagePresent
                 ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
         softAssert.assertAll();
+        System.out.println(car);
     }
 
 

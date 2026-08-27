@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 
 public class Car {
+    private String city;
     private String manufacture;
     private String model;
     private String year;
@@ -18,4 +19,5 @@ public class Car {
     private String carClass;
     private String serial;
     private Double price;
+    private String about;
 }
