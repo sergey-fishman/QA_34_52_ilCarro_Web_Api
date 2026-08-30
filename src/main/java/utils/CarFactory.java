@@ -3,6 +3,7 @@ package utils;
 import dto.Car;
 import net.datafaker.Faker;
 import utils.Enums.FuelType;
+import utils.Enums.FuelTypeLocators;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class CarFactory {
                 .model(faker.vehicle().model())
                 .year(Integer.toString(faker.number().numberBetween
                         (0, LocalDate.now().getYear())))
-                .fuelType(FuelType.ELECTRIC.getValue())
+                .fuelTypeLocators(faker.options().option(FuelTypeLocators.values()))
                 .seats(faker.number().numberBetween(2, 20))
                 .carClass(faker.vehicle().style())
                 .serial(faker.vehicle().licensePlate())

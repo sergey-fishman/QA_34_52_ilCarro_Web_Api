@@ -1,10 +1,9 @@
 package ui_tests;
 
-import utils.CarFactory;
-import utils.Enums.FuelType;
 import dto.Car;
 import dto.UserLombok;
 import manager.AppManager;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -44,9 +43,10 @@ public class LetTheCarWorkTests extends AppManager {
     }
 
     @Test
-    public void positiveTest() {
+    public void addCarPositiveTest() {
         Car car = positiveCar();
         letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.uploadImage("cat.png");
         letTheCarWorkPage.clickBtnSubmitWithJS();
         softAssert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
                 ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
@@ -56,7 +56,16 @@ public class LetTheCarWorkTests extends AppManager {
         System.out.println(car);
     }
 
+    // TC 1 -> All empty fields without click
+    @Test
+    public void addCarNegativeEmptyFieldsTest() {
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        Assert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
+                ("Car adding failed"));
+    }
 
-
-
+    // TC 2 -> All empty fields with click
+    // TC 3.1 -> Any empty field with popup
+    // TC 3.2 -> Any empty field with error message
+    // TC 4 -> invalid year
 }

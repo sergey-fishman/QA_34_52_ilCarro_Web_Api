@@ -1,6 +1,8 @@
 package dto;
 
 import lombok.*;
+import utils.Enums.FuelType;
+import utils.Enums.FuelTypeLocators;
 
 @Builder
 @Getter
@@ -14,7 +16,7 @@ public class Car {
     private String manufacture;
     private String model;
     private String year;
-    private String fuelType;
+    private FuelTypeLocators fuelTypeLocators;
     private Integer seats;
     private String carClass;
     private String serial;

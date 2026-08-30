@@ -1,12 +1,16 @@
 package pages;
 
 import dto.Car;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import utils.Enums.FuelTypeLocators;
+
+import java.io.File;
 
 public class LetTheCarWorkPage extends BasePage {
 
@@ -26,7 +30,7 @@ public class LetTheCarWorkPage extends BasePage {
     @FindBy(id = "year")
     WebElement inputYear;
     @FindBy(id = "fuel")
-    WebElement selectFuel;
+    WebElement inputSelectFuel;
     @FindBy(id = "seats")
     WebElement inputSeats;
     @FindBy(id = "class")
@@ -39,14 +43,18 @@ public class LetTheCarWorkPage extends BasePage {
     @FindBy(id = "about")
     WebElement textArea;
 
+    @FindBy(id = "photos")
+    WebElement inputPhotos;
+
     @FindBy(css = "button[type='submit']")
     WebElement btnSubmit;
 
     @FindBy(id = "mat-dialog-0")
     WebElement matDialogContainer;
 
-    public void typeLocation(String text) {
-        inputLocation.sendKeys(text);
+    private void selectFuelTypeByLocator(FuelTypeLocators fuelTypeLocators) {
+        inputSelectFuel.click();
+        driver.findElement(By.xpath(fuelTypeLocators.getLocator())).click();
     }
 
     public void typeCarDetailsForm(Car car) {
@@ -54,16 +62,13 @@ public class LetTheCarWorkPage extends BasePage {
         inputManufacture.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
         inputYear.sendKeys(car.getYear());
-        selectFuel.sendKeys(car.getFuelType());
+        selectFuelTypeByLocator(car.getFuelTypeLocators());
         inputSeats.sendKeys(car.getSeats().toString());
+//        inputSeats.sendKeys(Integer.toString(car.getSeats()));
         inputClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerial());
-        inputPrice.sendKeys(car.getPrice().toString());
+        inputPrice.sendKeys(String.valueOf(car.getPrice()));
         textArea.sendKeys(car.getAbout());
-    }
-
-    public void typeTextArea(String text) {
-        textArea.sendKeys(text);
     }
 
     public void clickBtnSubmitWithJS() {
@@ -71,6 +76,12 @@ public class LetTheCarWorkPage extends BasePage {
         js.executeScript("document.querySelector(\"button[type='submit']\")" +
                 ".removeAttribute(\"disabled\")");
         clickWait(btnSubmit);
+    }
+
+    public void uploadImage(String filename) {
+//        inputPhotos.sendKeys("C:\\AutoProjects\\QA_34_52_ilCarro_Web_Api\\src\\test\\resources\\cat.png");
+        inputPhotos.sendKeys(new File("src/test/resources/" + filename)
+                .getAbsolutePath());
     }
 
     public boolean validateTextInMatDialogContainerIsPresent(String text) {
