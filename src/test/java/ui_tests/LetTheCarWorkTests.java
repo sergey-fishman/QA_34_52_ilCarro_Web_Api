@@ -67,5 +67,5 @@ public class LetTheCarWorkTests extends AppManager {
     // TC 2 -> All empty fields with click
     // TC 3.1 -> Any empty field with popup
     // TC 3.2 -> Any empty field with error message
-    // TC 4 -> invalid year
+    // TC 4 -> invalid year 3 tests
 }

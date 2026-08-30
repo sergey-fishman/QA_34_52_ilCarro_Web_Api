@@ -17,13 +17,10 @@ public class AppManager {
         return driver;
     }
 
-    public Logger logger = LoggerFactory.getLogger(AppManager.class);
-
     @BeforeMethod
     public void setup(Method method) {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        logger.info("Start testing with method -> " + method.getName());
     }
 
     @AfterMethod(enabled = false)
