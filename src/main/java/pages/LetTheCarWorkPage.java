@@ -71,6 +71,18 @@ public class LetTheCarWorkPage extends BasePage {
         textArea.sendKeys(car.getAbout());
     }
 
+    public void clickCarDetailsForm() {
+        inputLocation.click();
+        inputManufacture.click();
+        inputModel.click();
+        inputYear.click();
+        inputSelectFuel.click();
+        inputSeats.click();
+        inputClass.click();
+        inputSerialNumber.click();
+        inputPrice.click();
+    }
+
     public void clickBtnSubmitWithJS() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.querySelector(\"button[type='submit']\")" +

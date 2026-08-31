@@ -5,6 +5,7 @@ import dto.UserLombok;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
@@ -12,9 +13,12 @@ import pages.LetTheCarWorkPage;
 import pages.LoginPage;
 import pages.PopUpPage;
 import utils.Enums.HeaderMenu;
+import utils.TestNGListener;
 
 import static utils.PropertiesReader.getProperty;
 import static utils.CarFactory.*;
+
+@Listeners(TestNGListener.class)
 
 public class LetTheCarWorkTests extends AppManager {
     HomePage homePage;
@@ -65,7 +69,25 @@ public class LetTheCarWorkTests extends AppManager {
     }
 
     // TC 2 -> All empty fields with click
+    @Test
+    public void addCarNegativeEmptyFieldsWithClickTest() {
+        letTheCarWorkPage.clickCarDetailsForm();
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        letTheCarWorkPage.clickBtnSubmitWithJS(); // с первого раза не кликается!
+        Assert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
+                ("Car adding failed"));
+    }
+
     // TC 3.1 -> Any empty field with popup
+    @Test
+    public void addCarNegativeAnyFieldTest() {
+        Car car = positiveCar();
+        car.setModel("");
+        letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        Assert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
+                ("Car adding failed"));
+    }
     // TC 3.2 -> Any empty field with error message
     // TC 4 -> invalid year 3 tests
 }
