@@ -30,7 +30,7 @@ public class LetTheCarWorkTests extends AppManager {
         loginPage = new HomePage(getDriver())
                 .clickHeaderButtons(HeaderMenu.LOG_IN);
         UserLombok user = UserLombok.builder()
-                .username(getProperty("base.properties", "email"))
+                .email(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);

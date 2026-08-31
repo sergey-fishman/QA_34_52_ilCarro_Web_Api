@@ -13,16 +13,40 @@ import java.util.List;
 public class UserDataProvider {
 
     @DataProvider
-    public Iterator<UserLombok> dataProviderWrongPasswordOrEmail() {
+    public Iterator<UserLombok> dataProviderWrongPassword() {
         List<UserLombok> userList = new ArrayList<>();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader
-                ("src/test/resources/wrong_email_password.csv"))){
+                ("src/test/resources/wrong_password.csv"))){
             String line = bufferedReader.readLine();
             while (line != null) {
                 String[] splitLine = line.split(",");
                 userList.add(UserLombok.builder()
-                        .username(splitLine[0])
+                        .email(splitLine[0])
+                        .password(splitLine[1])
+                        .firstName(splitLine[2])
+                        .lastName(splitLine[3])
+                        .build());
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("created exception");
+        }
+        return userList.listIterator();
+    }
+
+    @DataProvider
+    public Iterator<UserLombok> dataProviderWrongEmail() {
+        List<UserLombok> userList = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader
+                ("src/test/resources/wrong_email.csv"))){
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                String[] splitLine = line.split(",");
+                userList.add(UserLombok.builder()
+                        .email(splitLine[0])
                         .password(splitLine[1])
                         .firstName(splitLine[2])
                         .lastName(splitLine[3])

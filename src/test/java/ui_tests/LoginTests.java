@@ -29,7 +29,7 @@ public class LoginTests extends AppManager {
     @Test()
     public void loginPositiveTest() {
         UserLombok user = UserLombok.builder()
-                .username(getProperty("base.properties", "email"))
+                .email(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
@@ -42,7 +42,7 @@ public class LoginTests extends AppManager {
     @Test()
     public void loginNegativeWrongEmailTest() {
         UserLombok user = UserLombok.builder()
-                .username("tast321@gmail.com")
+                .email("tast321@gmail.com")
                 .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
@@ -53,7 +53,7 @@ public class LoginTests extends AppManager {
     @Test()
     public void loginNegativeWrongPasswordTest() {
         UserLombok user = UserLombok.builder()
-                .username(getProperty("base.properties", "email"))
+                .email(getProperty("base.properties", "email"))
                 .password("Test123456$")
                 .build();
         loginPage.typeLoginForm(user);
@@ -103,7 +103,7 @@ public class LoginTests extends AppManager {
     @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginNegativeEmptyEmailFieldTest() {
         UserLombok user = UserLombok.builder()
-                .username("")
+                .email("")
                 .password(getProperty("base.properties","password"))
                 .build();
         loginPage.typeLoginForm(user);
@@ -116,7 +116,7 @@ public class LoginTests extends AppManager {
     @Test
     public void loginNegativeEmptyPasswordFieldTest() {
         UserLombok user = UserLombok.builder()
-                .username(getProperty("base.properties","email"))
+                .email(getProperty("base.properties","email"))
                 .password("")
                 .build();
         loginPage.typeLoginForm(user);

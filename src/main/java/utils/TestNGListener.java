@@ -19,14 +19,13 @@ public class TestNGListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         ITestListener.super.onTestSuccess(result);
-        logger.info("test success -> "+  result.getName());
+        logger.info("test success -> {}", result.getName());
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
-        logger.error("test failed -> " + result.getName()
-        + " status -> " + result.getStatus());
+        logger.error("test failed -> {} status -> {}", result.getName(), result.getStatus());
     }
 
     @Override
@@ -38,20 +37,18 @@ public class TestNGListener implements ITestListener {
     @Override
     public void onTestFailedWithTimeout(ITestResult result) {
         ITestListener.super.onTestFailedWithTimeout(result);
-        logger.error("test failed with timeout -> " + result.getName());
+        logger.error("test failed with timeout -> {}", result.getName());
     }
 
     @Override
     public void onStart(ITestContext context) {
         ITestListener.super.onStart(context);
-        logger.info(context.getName() + " test start at " +
-                context.getStartDate());
+        logger.info("{} test start at {}", context.getName(), context.getStartDate());
     }
 
     @Override
     public void onFinish(ITestContext context) {
         ITestListener.super.onFinish(context);
-        logger.info(context.getName() + " test finished at " +
-                context.getEndDate());
+        logger.info("{} test finished at {}", context.getName(), context.getEndDate());
     }
 }

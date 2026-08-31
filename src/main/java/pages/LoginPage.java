@@ -36,7 +36,7 @@ public class LoginPage extends BasePage {
     WebElement btnOK;
 
     public void typeLoginForm(UserLombok user) {
-        inputEmail.sendKeys(user.getUsername());
+        inputEmail.sendKeys(user.getEmail());
         inputPassword.sendKeys(user.getPassword());
     }
 

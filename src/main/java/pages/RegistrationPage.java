@@ -14,7 +14,7 @@ public class RegistrationPage extends BasePage {
     public RegistrationPage(WebDriver driver) {
         PageFactory.initElements
                 (new AjaxElementLocatorFactory
-                        (driver, 10), this);
+                        (driver, 5), this);
     }
 
     @FindBy(xpath = "//form/div[1]/input")
@@ -40,7 +40,7 @@ public class RegistrationPage extends BasePage {
     public void typeRegistrationForm(UserLombok user) {
         inputFirstName.sendKeys(user.getFirstName());
         inputLastName.sendKeys(user.getLastName());
-        inputEmail.sendKeys(user.getUsername());
+        inputEmail.sendKeys(user.getEmail());
         inputPassword.sendKeys(user.getPassword());
     }
 
@@ -77,7 +77,7 @@ public class RegistrationPage extends BasePage {
         int y = checkBoxLabel.getSize().getHeight();
         System.out.println(x + "x" + y); //291x19
         Actions actions = new Actions(driver);
-        actions.moveToElement(checkBoxLabel,-x/2,-y/2)
+        actions.moveToElement(checkBoxLabel,-x/2,y/2)
                 .click().perform();
     }
 }
