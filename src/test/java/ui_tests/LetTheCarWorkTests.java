@@ -12,6 +12,7 @@ import pages.HomePage;
 import pages.LetTheCarWorkPage;
 import pages.LoginPage;
 import pages.PopUpPage;
+import utils.CarFactory;
 import utils.Enums.HeaderMenu;
 import utils.TestNGListener;
 
@@ -60,6 +61,7 @@ public class LetTheCarWorkTests extends AppManager {
         System.out.println(car);
     }
 
+    // HW
     // TC 1 -> All empty fields without click
     @Test
     public void addCarNegativeEmptyFieldsTest() {
@@ -85,9 +87,56 @@ public class LetTheCarWorkTests extends AppManager {
         car.setModel("");
         letTheCarWorkPage.typeCarDetailsForm(car);
         letTheCarWorkPage.clickBtnSubmitWithJS();
-        Assert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
-                ("Car adding failed"));
+        softAssert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
+                ("Car adding failed"), "If false -> text is not present");
+        softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupMessagePresent
+                ("\"model\":\"must not be blank\""), "If false -> text is not present");
+        softAssert.assertAll();
     }
+
     // TC 3.2 -> Any empty field with error message
-    // TC 4 -> invalid year 3 tests
+    // Как передать пустое значение в fuelType?
+    @Test
+    public void addCarNegativeAnyFieldErrorMessageTest() {
+        Car car = CarFactory.positiveCar();
+        car.setCarClass("");
+        letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
+                ("Car class is required"), "If false -> text is not present");
+    }
+
+    // TC 4.1 -> non-digit inside the year input field 3 tests
+    @Test
+    public void addCarWrongYearFieldNegativeTest_1() {
+        Car car = positiveCar();
+        car.setYear("e2026");
+        letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
+                ("Year required"), "If false -> text is not present");
+
+    }
+
+    // TC 4.2 -> Wrong year
+    @Test()
+    public void addCarWrongYearFieldNegativeTest_2() {
+        Car car = positiveCar();
+        car.setYear("-1");
+        letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        softAssert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
+                ("Wrong year"), "If false -> text is not present");
+    }
+
+    // TC 4.3 -> Wrong year
+    @Test()
+    public void addCarWrongYearFieldNegativeTest_3() {
+        Car car = positiveCar();
+        car.setYear("2027");
+        letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.clickBtnSubmitWithJS();
+        softAssert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
+                ("Wrong year"), "If false -> text is not present");
+    }
 }

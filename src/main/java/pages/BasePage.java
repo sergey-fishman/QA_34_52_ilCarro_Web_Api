@@ -111,7 +111,6 @@ public abstract class BasePage {
         return element.isDisplayed();
     }
 
-
     public void pause(int time) {
         try {
             Thread.sleep(time);
