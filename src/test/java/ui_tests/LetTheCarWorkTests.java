@@ -16,6 +16,8 @@ import utils.CarFactory;
 import utils.Enums.HeaderMenu;
 import utils.TestNGListener;
 
+import java.time.LocalDate;
+
 import static utils.PropertiesReader.getProperty;
 import static utils.CarFactory.*;
 
@@ -95,15 +97,14 @@ public class LetTheCarWorkTests extends AppManager {
     }
 
     // TC 3.2 -> Any empty field with error message
-    // Как передать пустое значение в fuelType?
     @Test
     public void addCarNegativeAnyFieldErrorMessageTest() {
         Car car = CarFactory.positiveCar();
-        car.setCarClass("");
+        car.setFuelTypeLocators(null);
         letTheCarWorkPage.typeCarDetailsForm(car);
         letTheCarWorkPage.clickBtnSubmitWithJS();
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
-                ("Car class is required"), "If false -> text is not present");
+                ("Fuel is required"), "If false -> text is not present");
     }
 
     // TC 4.1 -> non-digit inside the year input field 3 tests
@@ -115,7 +116,6 @@ public class LetTheCarWorkTests extends AppManager {
         letTheCarWorkPage.clickBtnSubmitWithJS();
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
                 ("Year required"), "If false -> text is not present");
-
     }
 
     // TC 4.2 -> Wrong year
@@ -133,8 +133,9 @@ public class LetTheCarWorkTests extends AppManager {
     @Test()
     public void addCarWrongYearFieldNegativeTest_3() {
         Car car = positiveCar();
-        car.setYear("2027");
+        car.setYear(String.valueOf(LocalDate.now().getYear() + 1));
         letTheCarWorkPage.typeCarDetailsForm(car);
+        letTheCarWorkPage.uploadImage("zebra.png");
         letTheCarWorkPage.clickBtnSubmitWithJS();
         softAssert.assertTrue(letTheCarWorkPage.isTextInErrorPresent
                 ("Wrong year"), "If false -> text is not present");

@@ -54,7 +54,13 @@ public class LetTheCarWorkPage extends BasePage {
 
     private void selectFuelTypeByLocator(FuelTypeLocators fuelTypeLocators) {
         inputSelectFuel.click();
-        driver.findElement(By.xpath(fuelTypeLocators.getLocator())).click();
+        if (fuelTypeLocators != null) {
+            driver.findElement(By.xpath(fuelTypeLocators.getLocator())).click();
+        } else {
+            pause(1000);
+            inputSelectFuel.click();
+        }
+
     }
 
     public void typeCarDetailsForm(Car car) {
