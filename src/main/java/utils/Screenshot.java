@@ -15,17 +15,11 @@ public class Screenshot {
     }
 
     private static String createFilename() {
-        SimpleDateFormat formater
-                = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        System.out.println(System.currentTimeMillis());
-        Date date = new Date(System.currentTimeMillis());
-        System.out.println(date);
-        String curDate = formater.format(date);
-        System.out.println(curDate);
-        String filename = "src/test/resources/screenshots/screen-"
-                + curDate + ".png";
-        System.out.println(filename);
-        return filename;
+        SimpleDateFormat formatter = new SimpleDateFormat
+                ("yyyy-MM-dd_HH-mm-ss");
+        String currentDate = formatter.format(new Date());
+        return "src/test/resources/screenshots/screen-"
+                + currentDate + ".png";
     }
 
     public static void takeScreenshot(TakesScreenshot screenshot){
