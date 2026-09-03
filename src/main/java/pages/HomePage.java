@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,10 +23,8 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//a[@href='/login?url=%2Fsearch']")
     WebElement linkLogin;
-
     @FindBy(xpath = "//app-navigator//a[@href='/registration?url=%2Fsearch']")
     WebElement linkRegistration;
-
     @FindBy(xpath = "//a[@href='/let-car-work']")
     WebElement linkLetCarWork;
 
@@ -33,20 +32,33 @@ public class HomePage extends BasePage {
     WebElement inputCity;
     @FindBy(id = "dates")
     WebElement inputDates;
-    @FindBy(xpath = "//button[@type='submit']")
-    WebElement btnYalla;
+    @FindBy(css = "button[type='submit']")
+    WebElement btnSubmit;
+
+    @FindBy(css = "div[class='search-results'] > h3")
+    WebElement searchResultsHeader;
+
+    public boolean validateTextInSearchResultsIsPresent(String text){
+        return isTextInElementPresent(searchResultsHeader, text);
+    }
+
+    public void clickBtnSubmitWithJS() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\")" +
+                ".removeAttribute(\"disabled\")");
+        clickWait(btnSubmit);
+    }
 
     public void typeSearchForm(String city, LocalDate startDate, LocalDate endDate) {
         inputCity.sendKeys(city);
-        System.out.println(startDate);
-        System.out.println(endDate);
+
         String dates = startDate.getMonthValue() + "/"
-                + startDate.getDayOfMonth() + "/"
-                + startDate.getYear() + " - "
-                + endDate.getMonthValue() + "/"
-                + endDate.getDayOfMonth() + "/"
-                + endDate.getYear();
-        System.out.println(dates);
+                    + startDate.getDayOfMonth() + "/"
+                    + startDate.getYear() + " - "
+                    + endDate.getMonthValue() + "/"
+                    + endDate.getDayOfMonth() + "/"
+                    + endDate.getYear();
+
         inputDates.sendKeys(dates);
     }
 

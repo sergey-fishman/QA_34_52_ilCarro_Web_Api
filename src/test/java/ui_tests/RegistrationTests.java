@@ -70,16 +70,15 @@ public class RegistrationTests extends AppManager {
     public void registrationNegativeEmptyFieldsNoClickTest() {
         registrationPage.clickCheckboxWithActions();
         registrationPage.clickBtnYalla();
-        softAssert.assertFalse(registrationPage
-                .isBtnYallaEnabled(), "If False -> Btn yalla is enabled");
-        softAssert.assertTrue(registrationPage
-                .isTextInErrorPresent("Name is required"), "Name is required error not found");
-        softAssert.assertTrue(registrationPage
-                .isTextInErrorPresent("Last name is required"), "Last name is required error not found");
-        softAssert.assertTrue(registrationPage
-                .isTextInErrorPresent("Email is required"), "Email is required error not found");
-        softAssert.assertTrue(registrationPage
-                .isTextInErrorPresent("Password is required"), "Password is required error not found");
+        softAssert.assertFalse(registrationPage.isBtnYallaEnabled(), "If False -> Btn yalla is enabled");
+        softAssert.assertTrue(registrationPage.isTextInErrorPresent("Name is required"),
+                "Error message contains text \"Name is required\"");
+        softAssert.assertTrue(registrationPage.isTextInErrorPresent("Last name is required"),
+                "Error message contains text \"Last name is required\"");
+        softAssert.assertTrue(registrationPage.isTextInErrorPresent("Email is required"),
+                "Error message contains text \"Email is required\"");
+        softAssert.assertTrue(registrationPage.isTextInErrorPresent("Password is required"),
+                "Error message contains text \"Password is required\"");
         softAssert.assertAll();
     }
 

@@ -29,8 +29,15 @@ public class TestNGListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
-        logger.error("test failed -> {} status -> {}",
-                result.getName(), result.getStatus());
+
+        Throwable throwable = result.getThrowable();
+        if (throwable != null) {
+            logger.error("Test failed: {}, Message: {}",
+                    result.getName(), throwable.getMessage());
+        } else
+            logger.error("Test failed: {}, Status: {}",
+                    result.getName(), result.getStatus());
+
         this.driver = ((AppManager) result.getInstance()).getDriver();
         Screenshot.takeScreenshot((TakesScreenshot) driver);
     }
@@ -52,12 +59,14 @@ public class TestNGListener implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
         ITestListener.super.onStart(context);
-        logger.info("{} test start at {}", context.getName(), context.getStartDate());
+        logger.info("{} start at {}",
+                context.getName(), context.getStartDate());
     }
 
     @Override
     public void onFinish(ITestContext context) {
         ITestListener.super.onFinish(context);
-        logger.info("{} test finished at {}", context.getName(), context.getEndDate());
+        logger.info("{} finished at {}",
+                context.getName(), context.getEndDate());
     }
 }

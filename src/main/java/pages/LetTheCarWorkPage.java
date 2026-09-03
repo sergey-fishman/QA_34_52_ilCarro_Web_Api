@@ -96,6 +96,7 @@ public class LetTheCarWorkPage extends BasePage {
         clickWait(btnSubmit);
     }
 
+
     public void uploadImage(String filename) {
 //        inputPhotos.sendKeys("C:\\AutoProjects\\QA_34_52_ilCarro_Web_Api\\src\\test\\resources\\cat.png");
         inputPhotos.sendKeys(new File("src/test/resources/" + filename)

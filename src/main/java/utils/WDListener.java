@@ -17,7 +17,7 @@ public class WDListener implements WebDriverListener {
     public void onError(Object target, Method method,
                         Object[] args, InvocationTargetException e) {
         WebDriverListener.super.onError(target, method, args, e);
-        logger.error("Exception: {}", e.toString());
+        logger.warn("Exception: {}", e.toString());
     }
 
     @Override
