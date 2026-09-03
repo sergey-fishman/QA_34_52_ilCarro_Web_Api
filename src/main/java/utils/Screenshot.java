@@ -26,7 +26,16 @@ public class Screenshot {
         String filename = createFilename();
         File screen = screenshot.getScreenshotAs(OutputType.FILE);
         try {
-            Files.copy(screen.toPath(), new File(filename).toPath());
+            Path targetPath = Paths.get(filename);
+
+            // создаем папки, если их нет
+            if (targetPath.getParent() != null)
+                Files.createDirectories(targetPath.getParent());
+
+            Files.copy(screen.toPath(), targetPath);
+            System.out.println("Screenshot saved: "
+                    + filename);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
