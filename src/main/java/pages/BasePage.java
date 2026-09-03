@@ -36,6 +36,13 @@ public abstract class BasePage {
                         .click();
     }
 
+    public void clickWaitDisabledElementWithJS(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\")" +
+                ".removeAttribute(\"disabled\")");
+        clickWait(element);
+    }
+
     public boolean isUrlContainsText(String text) {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(5)).until
