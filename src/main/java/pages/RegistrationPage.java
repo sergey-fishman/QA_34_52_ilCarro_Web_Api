@@ -59,6 +59,13 @@ public class RegistrationPage extends BasePage {
         btnYalla.click();
     }
 
+    public void clickBtnYallaWithJS() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\")" +
+                ".removeAttribute(\"disabled\")");
+        clickWait(btnYalla);
+    }
+
     public boolean isBtnYallaEnabled() {
         return btnYalla.isEnabled();
     }

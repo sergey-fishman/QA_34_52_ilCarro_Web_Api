@@ -82,6 +82,16 @@ public class RegistrationTests extends AppManager {
         softAssert.assertAll();
     }
 
+    // TC 1.1 Experimental test case -> Click on enabled Button Yalla with JS
+    @Test
+    public void registrationEmptyFieldsNoClickWithYallaEnabledNegativeTest() {
+        registrationPage.clickCheckboxWithActions();
+        registrationPage.clickBtnYallaWithJS();
+        Assert.assertTrue(registrationPage
+                .validateTextInMatDialogContainerIsPresent("Registration failed"),
+                "Text in container has message: \"Registration failed\"");
+    }
+
     // TC 2 -> User fails to reg if he only clicks on text fields but leaves them empty.
     // Expected result -> Reg failed, Button Yalla not clickable,
     // Text fields are highlighted red and error messages appear.
