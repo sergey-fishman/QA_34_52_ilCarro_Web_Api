@@ -14,11 +14,11 @@ public class PopUpPage extends BasePage {
                         (driver, 10), this);
     }
 
-    @FindBy(xpath = "//mat-dialog-container//h2")
-    WebElement popUpMessage;
+    @FindBy(id = "mat-dialog-0")
+    WebElement popUpContainer;
 
-    public boolean isTextInPoPupMessagePresent(String text){
-        return isTextInElementPresent(popUpMessage,text);
+    public boolean isTextInPoPupContainerPresent(String text){
+        return isTextInElementPresent(popUpContainer,text);
     }
 
 }

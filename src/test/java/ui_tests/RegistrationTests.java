@@ -57,7 +57,7 @@ public class RegistrationTests extends AppManager {
                         .validateTextInMatDialogContainerIsPresent("Registered"),
                 "If False -> Text 'Registered' is not present");
         softAssert.assertTrue(new PopUpPage(getDriver())
-                .isTextInPoPupMessagePresent("You are logged in success"));
+                .isTextInPoPupContainerPresent("You are logged in success"));
         softAssert.assertAll();
     }
 
@@ -87,6 +87,8 @@ public class RegistrationTests extends AppManager {
     public void registrationEmptyFieldsNoClickWithYallaEnabledNegativeTest() {
         registrationPage.clickCheckboxWithActions();
         registrationPage.clickBtnYallaWithJS();
+        Assert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupContainerPresent("Registration failed"),
+                "Text in container has message: \"Registration failed\"");
         Assert.assertTrue(registrationPage
                 .validateTextInMatDialogContainerIsPresent("Registration failed"),
                 "Text in container has message: \"Registration failed\"");
@@ -154,7 +156,7 @@ public class RegistrationTests extends AppManager {
         registrationPage.typeRegistrationForm(user);
         registrationPage.clickBtnYalla();
         Assert.assertTrue(new PopUpPage(getDriver())
-                        .isTextInPoPupMessagePresent("User already exists"),
+                        .isTextInPoPupContainerPresent("User already exists"),
                 "If false -> text in popUp message is not present");
     }
 

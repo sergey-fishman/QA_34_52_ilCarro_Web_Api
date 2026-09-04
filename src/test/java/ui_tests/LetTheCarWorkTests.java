@@ -57,7 +57,7 @@ public class LetTheCarWorkTests extends AppManager {
         letTheCarWorkPage.clickBtnSubmitWithJS();
         softAssert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
                 ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
-        softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupMessagePresent
+        softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupContainerPresent
                 ("{\"city\":\"must not be blank\"}"), "If false -> text is not present");
         softAssert.assertAll();
         System.out.println(car);
@@ -91,7 +91,7 @@ public class LetTheCarWorkTests extends AppManager {
         letTheCarWorkPage.clickBtnSubmitWithJS();
         softAssert.assertTrue(letTheCarWorkPage.validateTextInMatDialogContainerIsPresent
                 ("Car adding failed"), "If false -> text is not present");
-        softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupMessagePresent
+        softAssert.assertTrue(new PopUpPage(getDriver()).isTextInPoPupContainerPresent
                 ("\"model\":\"must not be blank\""), "If false -> text is not present");
         softAssert.assertAll();
     }
